@@ -24,5 +24,17 @@
   }
 
  
-
+  @media only screen and (max-width: 600px) {
+    #nav-links {
+      flex-direction: column;
+      align-items: center;
+      padding: 0;
+    }
+    
+    #nav-links li {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+  
 
