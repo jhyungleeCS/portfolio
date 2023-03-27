@@ -36,5 +36,42 @@
       margin-bottom: 10px;
     }
   }
-  
+/** dropdown **/
 
+.writeups ul {
+  display: none;
+  position: absolute;
+  background-color: #1a1a1a;
+  z-index: 1;
+}
+
+.writeups:hover ul {
+  display: block;
+}
+
+.writeups ul li {
+  display: block;
+}
+
+.writeups ul li a {
+  color: #ffd9b3;
+  font-size: 20px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.writeups ul li a:hover {
+  color: #b30059;
+  font-size: 25px;
+  transition: font-size 0.25s ease-in-out;
+}
+
+.writeups ul {
+  margin: 0;
+  padding: 0;
+}
+
+.writeups li ul li {
+  margin: 0;
+  padding: 5px 0 5px 20px; /* adjust as needed */
+}
