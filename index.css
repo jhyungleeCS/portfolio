@@ -1,5 +1,6 @@
 body{
     background-color: black;
+
 }
 
 #div1{
@@ -7,9 +8,10 @@ body{
     margin: auto;
     height: auto;
     text-align: center;
-    color: white;
+    color: #f2f2f2;
     font-size: 1.5rem;
     font-family: "Space Mono", monospace;
+
 }
 
 #mypfp{
@@ -17,3 +19,9 @@ body{
     border-radius: 10px;
     }
 
+#headbar{
+    color: #ffa64d;
+    font-family: 'Space Mono', monospace;
+    font-size: 25px;
+
+}
