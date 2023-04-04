@@ -1,5 +1,5 @@
 # portfolio
-<a href="(https://jhyungleecs.com/)"> jhyungleecs.com </a>
+<a href="https://jhyungleecs.com/"> jhyungleecs.com </a>
 
 Website/blog displaying my work, research, projects
 
