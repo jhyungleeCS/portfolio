@@ -1,5 +1,5 @@
 # portfolio
-#jhyungleecs.com
+jhyungleecs.com
 
 Website/blog displaying my work, research, projects
 
