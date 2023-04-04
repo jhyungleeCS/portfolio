@@ -6,7 +6,7 @@ iframe {
     height: 10%; /* set the height of the iframe */
     border: none;
   }
-#div2 {
+#div3 {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,21 +20,24 @@ iframe {
     margin-right: 80px;
     margin-top: 15px;
   }
-  
-@media only screen and (max-width: 600px) {
-    #div2 {
-      font-size: 13px;
-    }
-  }
 
-span.highlight{
-  color:#b30059 !important;
+h3{
+    margin-left: 0px !important;
+    color:#b30059;
+    font-size: 25px;
 }
 
-span.comptia{
-  color:#b30059 !important;
-  align-items: center;
-  font-weight: bold;
-  font-family: "Space Mono", monospace;
-  letter-spacing: 0.05em;
+#keylog-link {
+    text-decoration: none;
+    color: #ffd9b3;
+    }
+
+#keylog-link:hover{
+    color:#b30059;
+    }
+
+ul{
+    margin: 0;
+    padding: 20px;
+
 }
