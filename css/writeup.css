@@ -10,7 +10,7 @@ iframe {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: left;
     
     color: #ffcc99;
     font-size: 16px;
@@ -40,4 +40,8 @@ ul{
     margin: 0;
     padding: 20px;
 
+}
+
+h1 {
+  text-align: center;
 }

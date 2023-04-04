@@ -29,7 +29,7 @@ iframe {
 
 
   #research-links {
-    display: flex;
+    display: block;
     justify-content: center;
     list-style-type: none;
     padding: 0;
