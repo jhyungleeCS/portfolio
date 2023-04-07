@@ -102,12 +102,13 @@
         So instead, I wanted to obtain a self-signed certificate. In order to do this, I used OpenSSL in order to create my own certificate and key. I ran the commands the generate a private key, a certificate signing request, and self-signed SSL certificate: 
         </br>
         </br>
+        <div id="inner-div">
         openssl genrsa -out server.key 2048
         </br>
         openssl req -new -key server.key -out server.csr
         </br>
         openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-        </br>
+        </div>
         </br>
         </br>
         After creating my server certificate and key, I had to edit the configuration file which was located in my root folder: 
