@@ -70,9 +70,9 @@
         After installing the installation from source, I ran the framework by using: 
         </br>
         </br>
-        </br>
+        <div id="inner-div">
         sudo evilginx 
-        </br>
+        </div>
         </br>
         </br>
         This brought me to console page where I had the option to view current phishlets created by authors, their status, and a terminal which gave me the option to run commands to start my phishing attack. 
@@ -81,7 +81,7 @@
         I ran the following commands in order to start a phishlet campaign on office365. 
         </br>
         </br>
-        </br>
+        <div id="inner-div">
         config domain localhost
         </br>
         config ip 127.0.0.1:5000 
@@ -89,6 +89,8 @@
         phishlets hostname o365 localhost
         </br>
         phishlets enable o365
+        </div>
+        </br>
         <h3>Troubleshooting</h3>
         <p>
         I ran into a problem constantly with the last command ‘phishlets enable o365’. The error I was receiving was because the Let’s Encrypt certificate generation process was failing because tp notice the domain name I set “localhost” because it wasn’t a public TLD and cannot be used for SSL certificates from public CA. 
@@ -111,9 +113,9 @@
         After creating my server certificate and key, I had to edit the configuration file which was located in my root folder: 
         </br>
         </br>
-        </br>
+        <div id="inner-div">
         sudo nano /root/.evilginx/config.yaml
-        </br>
+        </div>
         </br>
         </br>
         <img src="../images/2fabypass/config file.PNG" alt="configfile">

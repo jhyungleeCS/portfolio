@@ -45,3 +45,9 @@ ul{
 h1 {
   text-align: center;
 }
+
+#inner-div{
+  border: 1px solid #ffcc99!important;
+  padding: 15px !important; 
+  border-color:#ffcc99 !important;
+}
