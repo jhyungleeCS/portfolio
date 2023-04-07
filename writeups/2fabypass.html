@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/navlink.css">
+    <link rel="stylesheet" href="../css/writeup.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <title>whoami - Mangoclient's Portfolio</title>
+</head>
+<body>
+    <iframe id="iframe-navlink" src="../html/navlink.html" title="navigation links"></iframe>
+    <div id="div3">
+        <h1 id="h1whoami">2FA Bypass w/ Evilginx2</h1>
+        <a href="https://github.com/jhyungleeCS/2fabypass" id="keylog-link">SOURCE CODE: www.github.com/jhyungleecs/2fabypass </a>
+        <h3>What is 2FA/MFA? </h3>
+        <p>
+            Multi-factor authentication can be defined as an extremely powerful and low cost way to protect against the weakest link in cybersecurity defense. (passwords). 
+        </br>
+        </br>
+        When a system or framework uses multi-factor authentication, it is referring to using two or more different types of authentication factors in order to create different levels of proof in order to authenticate a user. 
+        </br>
+        </br>
+        Some common ways that MFA is used is to combine something you know (password) with something you have (token). 
+        </br>
+        </br>
+        Although multi-factor may sound secure, more recently, there have been more attacks that have been proven successful in order to bypass this authentication process. 
+        </br>
+        </br>
+        Some of these attacks include MITM attacks, passing the cookie, and exploiting hard and software authenticating technology. 
+        </p>
+        <h3>What is evilginx2? </h3>
+        <p>
+            EvilGinx2 is a framework that is used for MITM attacks. Phishing for credentials such as username, password, and even authentication cookies (sessions). 
+        </br>
+        </br>
+        Evilginx2 acts as a proxy server between the user and web server that they are trying to access.
+        </p>
+        <h3>What is a proxy server? </h3>
+        <p>
+            Simply put, a proxy server is a gateway that sits between the client and web server that forwards requests from the user and server. There are many reasons to why a proxy server can be used in a network. 
+        </br>
+        </br>
+            Some of these reasons include: speed, privacy, security, caching. 
+        </p>
+        <h3>The Project</h3>
+        <p>
+            The project I wanted to create, was to run evilginx2 in an isolated home lab using the flask framework in a virtual machine. I wanted to test the phishing attack in my own environment with proper caution and procedure, and my own credentials I created as a “victim account”. 
+        </br>
+        </br>
+        The flask app would act as the web server. Evilginx2 would create a fake website that will be served from the local machine. By configuring the domain name and IP to localhost, the fake website is only accessible from the local machine, this allows for the testing to be isolated. 
+        </br>
+        </br>
+        The evilginx2 framework is written in GO, which means you would have to have it installed into your system’s shell path. 
+        </br>
+        </br>
+        I first opened up flask app and ran it to listen on port 5000. 
+        </br>
+        </br>
+        </br>
+        <img src="../images/2fabypass/flaskapp.PNG" alt="errorimage">
+        </br>
+        </br>
+        </br>
+        After installing the installation from source, I ran the framework by using: 
+        </br>
+        </br>
+        </br>
+        sudo evilginx 
+        </br>
+        </br>
+        </br>
+        This brought me to console page where I had the option to view current phishlets created by authors, their status, and a terminal which gave me the option to run commands to start my phishing attack. 
+        </br>
+        </br>
+        I ran the following commands in order to start a phishlet campaign on office365. 
+        </br>
+        </br>
+        </br>
+        config domain localhost
+        </br>
+        config ip 127.0.0.1:5000 
+        </br>
+        phishlets hostname o365 localhost
+        </br>
+        phishlets enable o365
+        <h3>Troubleshooting</h3>
+        <p>
+        I ran into a problem constantly with the last command ‘phishlets enable o365’. The error I was receiving was because the Let’s Encrypt certificate generation process was failing because tp notice the domain name I set “localhost” because it wasn’t a public TLD and cannot be used for SSL certificates from public CA. 
+        </br>
+        </br>
+        <img src="../images/2fabypass/evilginx2.PNG" alt="errorimage">
+        </br>
+        </br>
+        So instead, I wanted to obtain a self-signed certificate. In order to do this, I used OpenSSL in order to create my own certificate and key. I ran the commands the generate a private key, a certificate signing request, and self-signed SSL certificate: 
+        </br>
+        </br>
+        openssl genrsa -out server.key 2048
+        </br>
+        openssl req -new -key server.key -out server.csr
+        </br>
+        openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+        </br>
+        </br>
+        </br>
+        After creating my server certificate and key, I had to edit the configuration file which was located in my root folder: 
+        </br>
+        </br>
+        </br>
+        sudo nano /root/.evilginx/config.yaml
+        </br>
+        </br>
+        </br>
+        <img src="../images/2fabypass/config file.PNG" alt="configfile">
+        </br>
+        </br>
+        </br>
+        After relaunching the frameworks and restarting my flask app, I was still getting the same errors. 
+        I am currently stuck on this part and trying to research how to proceed with the next steps. I am receiving the same error, mentioning that the self-signed SSL certificate is not being recognized.
+        </p>
+        <h3>Questions & Updates</h3>
+        <p>3/25/23</p>
+        <h3>Resources</h3>
+        <ul>
+            <li><a href="https://github.com/kgretzky/evilginx2">https://github.com/kgretzky/evilginx2</a></li>
+            <li><a href="https://www.youtube.com/watch?v=GexQHFt9fTE">https://www.youtube.com/watch?v=GexQHFt9fTE</a></li>
+        </ul>
+    </div>
+</body>
+</html>
