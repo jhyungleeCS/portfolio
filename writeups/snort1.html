@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/navlink.css">
+    <link rel="stylesheet" href="../css/writeup.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <title>Snort Intrusion Detection and Logging - Mangoclient's Portfolio</title>
+</head>
+<body>
+    <iframe id="iframe-navlink" src="../html/navlink.html" title="navigation links"></iframe>
+    <div id="div3">
+        <h1 id="h1whoami">Snort Intrusion Detection and Logging</h1>
+        <h3>What is Snort? </h3>
+        <p>
+        Snort is a popular open-sourced IDS/IPS that is used to perform real-time traffic/protocol analysis and data packet logging.
+        </br>
+        </br>
+        Snort has been in active development and has thousands of community members that help develop rules to keep it up to date with the latest attacks.
+        </br>
+        </br>
+        Snort has three main operational modes: 
+            <ul>
+                <li>Packet Sniffing: Collects and displays network traffic like what WireShark does</li>
+                <br>
+                <li>Packet Logging: Collects and logs network traffic into a file </li>
+                <br>
+                <li>Network Intrusion Detection: Analyzes packets and matches traffic against signatures </li>
+                <br>
+            </ul>
+        Snort detects malicious traffic or attacks by leveraging patterns and matching them through signature-based rules.
+        </br>
+        </br>
+        When active, Snort captures packets, reassembles them, analyzes them and determines what needs to be done to the packet based on predefined rules. 
+        </br>
+        </p>
+        <h3>Snort Rule Syntax </h3>
+        <p>
+        There are typically four different sets of rules used in Snort. 
+        <ul>
+            <li>Community Rules: free rule sets created by the Snort community </li>
+            <br>
+            <li>Registered Rules: free rule sets created by Talos. (In order to use them, you must register for an account) </li>
+            <br>
+            <li>Subscription only Rules: rule sets requiring an active paid subscription in order to be accessed and used </li>
+            <br>
+            <li>Local Rules: your own rules you can create based on your requirements and desires </li>
+        </ul>
+        <br>
+        No matter which set of rules you are using, they follow the same syntax.
+        <br>
+        <br>
+        <img src="../images/snort1/snortruledrawio.PNG" alt="snortruledrawio">
+        <br>
+        <br>
+        <br>
+        Each rule generated follows this format.
+        <br>
+        <br>
+        You can use online tools such as Snorpy tool editor to help you generate rules.
+        <br>
+        <br>
+        <a href="http://snorpy.cyb3rs3c.net/" id="keylog-link">Snorpy Tool: http://snorpy.cyb3rs3c.net/ </a>
+        <br>
+        <br>
+        <img src="../images/snort1/snorpytool.PNG" alt="toolsnorpy">
+        </p>
+        <h3>Virtual Network Configuration</h3>
+        <p>
+        In order to test out snort, I first created a virtual environment in order to test in. 
+        <br>
+        <br>
+        To do this, I used VMware's Workstation 17. 
+        <br>
+        <br>
+        <img src="../images/snort1/snorttopology.PNG" alt="toposnort">
+        </p>
+        <h3>Snort Installation</h3>
+        <p>
+        When downloading snort, use the following command on your terminal: 
+        <br>
+        <br>
+        <div id="inner-div">
+        sudo apt-get install snort -y 
+        <br>
+        </div>
+        <br>
+        Once installed, you will be directed to a configuration window, you should set the network adapter that you are currently using for your device. 
+        <br>
+        <br>
+        This can be found using the command ifconfig. 
+        <br>
+        <br>
+        Sometimes, it will ask you for the subnet for the network you want to listen on. 
+        <br>
+        <br>
+        <br>
+        <img src="../images/snort1/aptgetsnort.PNG" alt="aptgetsnort">
+        <br>
+        <br>
+        Lastly, enabling promiscious mode before testing out its features.
+        <br>
+        <br>
+        Promiscious mode is a mode that allows capturing of all network traffic that is passing through it, regardless of whether the packets are destined for the NIC’s hardware address or not. 
+        <ul>
+            <li>In order to do this in vmware, I had to gotoi where the virtual machine files were saved, search for the VMware .vmx file and add in the entry ethernet0.promisc  = “TRUE” </li>
+        </ul>
+        </p>
+        <h3>Testing Local Rules (ICMP,SSH) </h3>
+        <p>
+        In order to familiarize myself with the way snort handles rules, I decided to use the local rules folder in order to create my own rules following the snort syntax to understand how the logging method works.
+        <br>
+        <br>
+        To access the rules folder, you can find them using this command: 
+        <br>
+        <br>
+        <div id="inner-div">sudo vim /etc/snort/rules/  </div>
+        <br>
+        First I added this rule for ICMP ping alerts: 
+        <br>
+        <br>
+        <div id="inner-div">alert icmp any any → $HOME_NET any (msg: “ICMP Ping Detected”; sid: 100001; rev: 1;) </div>
+        <br>
+        <br>
+        Next, I tested the pinging by using the kali linux box on the same network adapter to ping the ubuntu machine.
+        <br>
+        <br>
+        Before I ran the ping command on my kali linux box, I first set up the ubuntu machine running snort and ran this command:
+        <br>
+        <br>
+        <div id="inner-div">sudo snort -q -l /var/log/snort -i ens33 -A console -c /etc/snort/snort.conf </div>
+        <ul>
+            <li>What this command does is, it’s telling snort to run on quite mode, and log all incoming packets for the ens33 network adapter and display it on the console. </li>
+        </ul>
+        <br>
+        <img src="../images/snort1/Capture.PNG" alt="capture">
+        <br>
+        <br>
+        Snort is a unique tool because it doesn’t limit users to just one protocol or one rule at a time. 
+        <br>
+        <br>
+        You can have multiple rules which allows detection to be effective and follow signatures that match to be displayed onto a console or file. 
+        <br>
+        <br>
+        Another rule I created was a rule that alerted users when there was an SSH authentication attempt. 
+        <br>
+        <br>
+        This was the following syntax rule I used:
+        <div id="inner-div">alert tcp any any → $HOME_NET 22 (msg: “SSH Authentication Attempt”; sid: 100002; rev:1;) </div>
+        <br>
+        <br>
+        <img src="../images/snort1/sshcapture.PNG" alt="sshcapture">
+        </p>
+        <h3>Testing Community Rules (EternalBlue)</h3>
+        <p>
+        Lastly, I wanted to test a community created rule that takes advantage of the eternalblue exploit. 
+        <br>
+        <br>
+        Eternalblue was a cyber exploit that was specifically targeting a vulnerability in the Microsoft Windows OS that allowed hackers to gain remote access on vulnerable systems without causing any user interaction. 
+        <br>
+        <br>
+        Attackers who had gained access to the affected systems were able to spread malware including ransomware or cryptoware that caused widespread disruption and disaster. 
+        <br>
+        <br>
+        In order to access the community rules, I first downloaded the rule set from the website snort.org. 
+        <br>
+        <br>
+        In the file, there were a bunch of prewritten signature rules that helps keep users up to date with the latest and greatest protection against certain attacks and attempts to steal credentials from different sources of malware. 
+        <br>
+        <br>
+        I took the eternalblue example that was created by the community and copied it into my local rules file. 
+        <br>
+        <br>
+        <div id="inner-div">alert tcp any any -> $HOME_NET 445 (msg:"OS-WINDOWS Microsoft Windows SMB remote code execution attempt"; flow:to_server,established; content:"|FF|SMB3|00 00 00 00|"; depth:9; offset:4; byte _extract:2,26,TotalDataCount,relative,little; byte_test:2,>,TotalDataCount,20,relative,little; metadata:policy balanced-ips drop, policy connectivity-ips drop, policy max-detect-ips drop, po licy security-ips drop, ruleset community, service netbios-ssn; reference:cve,2017-0144; refere nce:cve,2017-0146; reference:url,blog.talosintelligence.com/2017/05/wannacry.html; reference:ur l,isc.sans.edu/forums/diary/ETERNALBLUE+Possible+Window+SMB+Buffer+Overflow+0Day/22304/; refere nce:url,technet.microsoft.com/en-us/security/bulletin/MS17-010; classtype:attempted-admin; sid: 41978; rev:5;) </div>
+        <br>
+        <br>
+        To set up the listener, I ran the command: 
+        <br>
+        <br>
+        <div id="inner-div">sudo snort -q -l /var/log/snort -i ens33 -A console -c /etc/snort/snort.conf </div>
+        <br>
+        <br>
+        Next, I set up the Kali Linux box to attack another vulnerable Windows 7 machine I had created in my virtual environment. 
+        <br>
+        <br>
+        After turning on both boxes, I ran these commands on the Kali Linux Box: 
+        <ul>
+            <li>msfconsole</li>
+            <li>search eternalblue</li>
+            <li>(I copied the first module)</li>
+            <li>use exploit/windows/smb/ms17_010_eternalblue</li>
+            <li>set RHOSTS 192.168.191.133 (i set the RHOSTS to the IP of the Windows 7 Box) </li>
+            <li>exploit</li>
+        </ul>
+        <br>
+        <img src="../images/snort1/eternalbluecapture.PNG" alt="eternalbluecapture">
+        <br>
+        <br>
+        Snort was able to to detect this and logs the attempt based on the rule we grabbed from the community rules earlier. 
+        </p>
+        <h3>Where can you see your results? </h3>
+        <p>
+        Snort was useful for packet logging but where exactly is the information logged? 
+        <br>
+        <br>
+        The logs that were generated on the console can be found under /var/log/snort since we’ve set the log directory (-l) to be under this path. 
+        <br>
+        <br>
+        These pcap files can be loaded and viewed under other application and packet analyzers such as WireShark. 
+        <br>
+        <br>
+        If you wanted to use these files and log them in an application like Splunk, where you would be able to analyze logs and charts, you can change the alert mode (-A) to FAST which can help pre format them in a readable format for applications like Splunk. 
+        <br>
+        <br>
+        Once you have the alert log, you can analyze them by using a universal log forwarder to have them dynamically loaded into the tool.   
+        </p>
+    </div>
+</body>
+</html>
