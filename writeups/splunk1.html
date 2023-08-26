@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/navlink.css">
+    <link rel="stylesheet" href="../css/writeup.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <title>Security Event Monitoring with Splunk - Mangoclient's Portfolio</title>
+</head>
+<body>
+    <iframe id="iframe-navlink" src="../html/navlink.html" title="navigation links"></iframe>
+    <div id="div3">
+        <h1 id="h1whoami">Security Event Monitoring with Splunk</h1>
+        <h3>Setting up the Splunk Enterprise on the Ubuntu 20.04 system </h3>
+        <p>
+        First, I tried creating an instance through Linode's Cloud, however, ran into multiple errors including this error code:
+        <ul>
+            <li>Error connecting: error:14090086:SSL routines:ssl3_get_server_certificate:certificate verify failed - please check the output of the openssl verify command for the certificates involved; note that if certificate verification is enabled (requireClientCert or sslVerifyServerCert set to "true"), the CA certificate and the server certificate should not have the same Common Name.. Your Splunk instance is specifying custom CAs to trust using sslRootCAPath configuration in server.conf's [sslConfig] stanza. Make sure the CAs in the appsCA.pem (located under $SPLUNK_HOME/etc/auth/appsCA.pem) are included in the CAs specified by sslRootCAPath. To do this, append appsCA.pem to the file specified by the sslRootCAPath parameter.</li>
+        </ul>
+        <br>
+        <br>
+        After hours of researching and trying to configure/update the certificates being used, it still wouldn't budge, so instead of using a cloud instance, I decided to download the Splunk Enterprise software directly onto my Ubuntu box.
+        <br>
+        <br>
+        Here were the steps taken in order to install Splunk:
+        <br>
+        <ul>
+            <li>Create an account at www.splunk.com </li>
+            <li>Head over to products and free trial, and click "Download Free 60-day Trial"</li>
+            <li>Click the preferred OS, mine was Linux and the .deb extension.</li>
+            <li>After downloading, open up a terminal and run these commands:</li>
+        </ul>
+        <div id="inner-div">
+            wget -O splunk-8.2.4-87e2dda940d1-linux-2.6-amd64.deb
+            <br>
+            ls (copy the download file name)
+            <br>
+            sudo apt install ./(paste the download file name)
+        </div>
+        <ul>
+            <li>After the installation, change to root user using this command:</li>
+        </ul>
+        <div id="inner-div">
+            sudo su
+        </div>
+        <ul>
+            <li>Change to where the installation is found: </li>
+        </ul>
+        <div id="inner-div">
+            cd /opt/splunk/bin
+        </div>
+        <ul>
+            <li>Next accept Splunk license: </li>
+        </ul>
+        <div id="inner-div">
+            ./splunk start --accept_license -y
+        </div>
+        <ul>
+            <li>Create a username and password used to log into the Splunk Application</li>
+            <li>Once the web server starts, copy and paste the IP into your browser.</li>
+        </ul>
+        <br>
+        <img src="../images/splunk1/splunklogin.PNG" alt="splunklogin">
+        </p>
+        <h3>Configuring features on Splunk</h3>
+        <p>
+        Now that Splunk is downloaded and we are logged in, we want to make some changes first in order to configure for our lab environment.
+        <br>
+        <br>
+        Once you are brought to the Dashboard, we want to first configure the receiving of data:
+        <ul>
+            <li>Click on Settings on the top right</li>
+            <li>Go to Data and click on Forwarding and Receiving</li>
+            <li>We want to configure the data being received, so click on add new and add a new port to listen to: 9997</li>
+        </ul>
+        <br>
+        <br>
+        <img src="../images/splunk1/confnewport.PNG" alt="confnewport">
+        <br>
+        <br>
+        Next, Find more Apps on the top left and scroll to Browse More Apps
+        <ul>
+            <li>Install the "Snort Alert" for Splunk</li>
+            <li>This download is important in providing field extractions for Snort alert logs (fast and full) as well as dashboards, saved searches, reports, event types, tags and event search interfaces.</li>
+            <li>When you click install and the credentials window pops up, type in your credentials for your Splunk Account from splunk.com not the credentials you used to log into the web application.</li>
+        </ul>
+        </p>
+        <h3>Setting up the Universal Forwarder</h3>
+        <p>
+        In order to collect the data that is coming from the Snort IDS and into the Splunk Application, we must download and use the Splunk Universal Forwarder. 
+        <br>
+        <br>
+        The Splunk Universal Forwarder is responsible for forwarding/collecting the data from remote sources and forwarding the data into Splunk software for indexing and consolidation. 
+        <br>
+        <br>
+        They can be used to scale tens of thousands of remote systems, collecting terabytes of data.
+        <br>
+        <br>
+        Here are the steps in order to download the Universal Forwarder:
+        <ul>
+            <li>Choose your preferred download file based on what fits your requirements</li>
+            <li>Next, move the download to the opt software, its good to have it all under the opt directory</li>
+            <li>Once moved, change directory to /opt</li>
+            <li>Next run the install: sudo apt install</li>
+        </ul>
+        Now that the file has been installed, change to the splunkforwarder/bin directory. Accept the license agreement and create a username and password for the forwarder.
+        <br>
+        <br>
+        Configuring Forward Server to forward the data to the Splunk Server: 
+        <br>
+        <br>
+        <div id="inner-div">
+            sudo ./splunk add forward-server 127.0.0.1:9997
+        </div>
+        <br>
+        <br>
+        Next we are responsible for configuring the outputs.conf / inputs.conf files.
+        <ul>
+            <li>Head over to the /opt/splunkforwarder/etc/system/local directory. In the outputs.conf file, make sure that they are correctly formatted.</li>
+        </ul>
+        <img src="../images/splunk1/outputconf.PNG" alt="confoutput">
+        <br>
+        <br>
+        Next we want to add the actual path of the file we want forwarded to the Splunk Application:
+        <ul>
+            <li>In this case, I want to forward the Snorts alert file that we generated from the Snort virtual lab.</li>
+            <li>We add this by first directing to the bin directory, and running this command:</li>
+        </ul>
+        <div id="inner-div">
+            sudo ./splunk add monitor /var/log/snort/alert
+        </div>
+        <br>
+        Lastly, the following should be added in to the inputs.conf file which can be found under this file path: 
+        <ul>
+            <li>/opt/splunkforwarder/etc/apps/search/local</li>
+        </ul>
+        Before we run splunk, we have to restart the splunk application.
+        <br>
+        <br>
+        <img src="../images/splunk1/inputconf.PNG" alt="confinput">
+        </p>
+        <h3>Analyzing the Data</h3>
+        <p>
+        With the configuration out of the way, we can now view the imported data by navigating under Search and Reporting and clicking on Data Summary and then under sources.
+        <br>
+        <br>
+        If configured correctly, the data should be present with the name of the file being the name of the virtual machine.
+        <br>
+        <br>
+        Using Splunk, you are able to break down each event, view the full event and time stamp.
+        <br>
+        <br> 
+        You are able to visualize each event with selected fields to create graphs, charts, or any other form of visualization to view trends.
+        </p>
+        <h3>Troubleshooting and Errors</h3>
+        <p>
+        While running through this lab I had many different errors.
+        <br>
+        <br>
+        One flaw I ran into was reaching the maximum free disk space reached error when trying to conduct a search using the Installed Snort Alert for Splunk App.
+        <ul>
+            <li>I was able to fix it by using this document: </li>
+        </ul>
+        <a href="https://medium.com/@sweetdee360/making-my-way-through-splunk-bff7c1ccb1c1" id="keylog-link">Link: https://medium.com/@sweetdee360/making-my-way-through-splunk-bff7c1ccb1c1 </a>
+        <br>
+        One of the biggest problems I was facing was through the File Monitoring Input.
+        <br>
+        <br>
+        I was having trouble with the Ingestion Latency and Real-time Reader-0. 
+        <br>
+        <br>
+        These two factors were telling me that the monitor input couldn’t produce data because the process queues were full and passing the threshold. 
+        <br>
+        <br>
+        I tried searching for the error and haven’t really found a feasible solution that would be able to work. 
+        <br>
+        <br>
+        <img src="../images/splunk1/splunkerror.PNG" alt="splunkerror">
+        </p>
+    </div>
+</body>
+</html>
