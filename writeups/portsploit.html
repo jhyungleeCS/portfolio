@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/navlink.css">
+    <link rel="stylesheet" href="../css/writeup.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <title>PortSploit - Mangoclient's Portfolio</title>
+</head>
+<body>
+    <iframe id="iframe-navlink" src="../html/navlink.html" title="navigation links"></iframe>
+    <div id="div3">
+        <h1 id="h1whoami">PortSploit</h1>
+        <h3>What is PortSploit?</h3>
+        <p>
+        Portsploit is a project created during my senior year of my college career. 
+        <br>
+        <br>
+        Portsploit is a one-stop shop web application reconnaissance tool that allows users to input an organization and receive information about accessible IPs and open ports, pairing that with a knwon vulnerabilities database. 
+        </p>
+        <h3>What are ports? Are they a risk?</h3>
+        <p>
+        Ports are basic endpoints used for communication in a network that allows data to be sent and recieved. 
+        <br>
+        <br>
+        Open ports are a risk to a network because this gives a potential access point for attackers to gain unauthorized access. 
+        <br>
+        <br>
+        Having open ports on a network can leave attackers to deploy an array of attacks including port/packet sniffing, a DoS (denial of service) attack, and even exploiting known vulnerabilities that the port has. 
+        </p>
+        <h3>What does PortSploit do? </h3>
+        <p>
+        Investigating different devices and vulnerabilities across the internet can result in cross-referencing multiple sites to get the information one needs. 
+        <br>
+        <br>
+        Portsploit aims to consolidate this inforamtion and combine the power of multiple tools to make reconnaissance and vulnerability hunting straight forward. 
+        <br>
+        <br>
+        Portsploit will utilize the power of Shodan to pull information on organizations such as accessible IPs, open ports, and other metadata and present it to the user. 
+        <br>
+        <br>
+        PortSploit will combine this data from the SHodan API with a local database containing port vulnerability information from SpeedGuide.net. 
+        <br>
+        <br>
+        The result is a view that provides a user with information about an organization’s open ports and potential vulnerabilities, all from one search. 
+        <br>
+        <br>
+        Portsploit also conveniently provides IP address information next to vulnerable ports, further simplifying the reconnaissance process. 
+        <br>
+        <br>
+        With the results, the user is able to sort the table and search for specific keywords. 
+        <br>
+        <br>
+        Additionally, if there is an IP address that the user is interested in, they are able to click on that specific IP address to only see that IP address from the associated organization. 
+        <br>
+        <br>
+        Overall, PortSploit makes host discovery and vulnerability hunting a fast, easy, and more convenient process allowing for professionals to spend more time exploiting and less time hunting. 
+        </p>
+        <h3>How to run on a local machine </h3>
+        <ul>
+            <li>Go to the following repository: </li>
+        </ul>
+        <a href="https://github.com/jhyungleeCS/portsploit/tree/main " id="keylog-link">Repository: https://github.com/jhyungleeCS/portsploit/tree/main  </a>
+        <ul>
+            <li>Extract the PortSploit1.0.zip file </li>
+            <li>Open your IDE and make sure the following modules and libraries are installed: </li>
+        </ul>
+        <div id="inner-div">
+        flask
+        <br>
+        shodan
+        <br>
+        csv
+        <br>
+        pandas 
+        <br>
+        os
+        </div>
+        <ul>
+            <li>Move every file to your root app directory </li>
+            <li>Run the python script portsploit1.0.py</li>
+            <li>Access the GUI by clicking on the: 'localmachineIP:5000'</li>
+        </ul>
+        <h3>How to run a search </h3>
+        <p>
+        Through the application, you can run a search on any organization that is found on shodan as well as specify any port if you are looking for something specific.
+        <br>
+        <br>
+        <img src="../images/portsploit/Capture.PNG" alt="portsploitsearch">
+        <br>
+        <br>
+        The output that is generated should generate all possible IPs on the network. 
+        <br>
+        <br>
+        Some other data present includes port number, hostname, where the data is references from, protocol, service, details about the service, and the source as well. 
+        <br>
+        <br>
+        You can use the search bar in the top right to narrow a search by a specific keyword or number to get more specific results. 
+        <br>
+        <br>
+        Each column can be alphabetized if desired. 
+        <br>
+        <br>
+        <img src="../images/portsploit/search1.PNG" alt="portsploitsearch1">
+        <br>
+        <img src="../images/portsploit/search2.PNG" alt="portsploitsearch2">
+        <br>
+        <br>
+        If there is a port that is uncommon or you don’t understand, you can click on the reference link to view further information that is associated with that specific port.
+        <br>
+        <br>
+        Another feature that we have is, when hovering your mouse over details, there will be a section that expands that shows you everything within that cell. 
+        <br>
+        <br>
+        <img src="../images/portsploit/expand.PNG" alt="portsploitexpand">
+        </p>
+    </div>
+</body>
+</html>
