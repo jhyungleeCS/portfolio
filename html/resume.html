@@ -1,12 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Page</title>
+    <title>Embedded PDF Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .pdf-container {
+            width: 100%;
+            max-width: 800px; /* You can adjust the max width as needed */
+            height: 100%;
+        }
+        embed {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
-    <embed src="../pdf/jhyungleeresume.pdf" width="100%" height="600" type="application/pdf">
+        <embed src="../pdf/jhyungleeresume.pdf" width="100%"  type="application/pdf">
 </body>
 </html>
