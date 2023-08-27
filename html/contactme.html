@@ -10,20 +10,61 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
   
+  <!-- Add Font Awesome link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  
+  <style>
+    /* Your existing styles here */
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .icon-links {
+      display: flex;
+      flex-direction: row; /* Change flex direction to row */
+      align-items: center;
+      margin-top: 20px;
+      width: 150px; /* Adjust the width of the icon-links div */
+      height: 30px; /* Adjust the height of the icon-links div */
+    }
+
+    .icon-link {
+      margin: 5px; /* Adjust the margin as needed for spacing */
+    }
+
+    /* Adjust the width and height to make the icons smaller */
+    .icon-link img {
+      width: 40px; /* Adjust the width as needed */
+      height: 40px; /* Adjust the height as needed */
+    }
+  </style>
+
   <title>Contact Me -- Daniel Lee Portfolio</title>
 </head>
 <body>
-    <iframe id="iframe-navlink" src="navlink.html" title="navigation links"></iframe>
-    <a href="https://www.linkedin.com/in/daniel-lee-32a954184/" class="icon-link">
-        <img src="../icons/linkedin.png" alt="linkedin Icon"> 
+  <!-- Apply inline style to adjust margin only for this page -->
+  <iframe id="iframe-navlink" src="navlink.html" title="navigation links" style="margin-bottom: 10px;"></iframe>
+  
+  <div class="icon-links">
+    <a href="https://www.linkedin.com/in/daniel-lee-32a954184" class="icon-link">
+      <img src="../icons/linkedin.png" alt="linkedin Icon">
     </a>
-    
+
     <a href="https://github.com/jhyungleeCS" class="icon-link">
-        <img src="../icons/github.png" alt="Github Icon">
+      <img src="../icons/github.png" alt="Github Icon">
     </a>
 
     <a href="mailto:jhyunglee.cs@gmail.com" class="icon-link">
-        <img src="../icons/envelope.png" alt="Email Icon">
+      <img src="../icons/envelope.png" alt="Email Icon">
     </a>
+  </div>
 </body>
 </html>
+
+
