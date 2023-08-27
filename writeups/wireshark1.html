@@ -17,6 +17,191 @@
     <iframe id="iframe-navlink" src="../html/navlink.html" title="navigation links"></iframe>
     <div id="div3">
         <h1 id="h1whoami">Decrypting HTTP traffic with WireShark</h1>
+        <h3>What is Wireshark? </h3>
+        <p>
+        Wireshark is an popular network protocol analyzer/packet sniffer. 
+        <br>
+        <br>
+        It is used to capture and analyze the data packets traveling back and forth on a computer network.
+        <ul>
+            <li>it is most popularly used to troubleshoot network issues, analyze network traffic, and diagnose problems related to network protocols, performance, and security</li>
+            <li>allows you to capture traffic on a network and is present in the form of individual packets for granular analysis. </li>
+        </ul>
+        <br>
+        Some of the features Wireshark includes: 
+        <ul>
+            <li>live traffic/packet capture</li>
+            <li>packet dissection </li>
+            <li>ability to import/export captured traffic (PCAP)</li>
+            <li>robust capture and display filters </li>
+            <li>ability to search for packets</li>
+            <li>customize and color code packets based on our requirements </li>
+        </ul>
+        In the context of Blue Team operations, Wireshark is typically used to analyze previously captured traffic stored in the form of a PCAP file for analysis and threat identification.
+        <br>
+        <br>
+        </p>
+        <h3>What are PCAP files? </h3>
+        <p>
+        PCAP (packet capture) is an API that is used to capture and record network packets from layer 2-7 of the OSI model.
+        <br>
+        <br>
+        Wireshark utilizes the .pcap file format to capture and store packets for later analysis. 
+        <br>
+        <br>
+        Network traffic captured with Wireshark can be exported or imported in the form of a .pcap file. 
+        <br>
+        <br>
+        This allows analysts to import and analyze network traffic that was captured on another network at a different time.
+        </p>
+        <h3>Wireshark's Interface</h3>
+        <p>
+        Wireshark GUI displays three separate panes or windows. 
+        <br>
+        <br>
+        1st pane displays packets that are being captured. Features include: 
+        <ul>
+            <li>Packet Number</li>
+            <li>Time</li>
+            <li>Source</li>
+            <li>Destination</li>
+            <li>Protocol for Packet</li>
+            <li>Length is the length of the data contained within a packet </li>
+            <li>Info shows information about the packet </li>
+        </ul>
+        2nd pane is the packet details pane of the packet selected. 
+        <ul>
+            <li>packet dissection </li>
+            <li>the order goes from data link layer, network layer, transport layer, maybe session and presentation as well as application layer</li>
+        </ul>
+        3rd pane is the packet bytes pane 
+        <ul>
+            <li>displays the content in ASCII or default hex (configurable) </li>
+        </ul>
+        </p>
+        <h3>Decrypting HTTP traffic </h3>
+        <p>
+        This lab that I followed help emulate a scenario where a SOC analyst or a Blue Team Analyst is given a situation or pcap file to inspect to see what went wrong that allowed malware to infect a device.
+        <br>
+        <br>
+        To start, you can view the packet list by applying a filter that is useful:
+        <br>
+        <br>
+        <div id="inner-div">
+            tls.handshake.type eq 1
+        </div>
+        <br>
+        <br>
+        Once filtered, right clicking on a packet and follow TCP stream, you can see that the data is encrypted because its an SSL certificate. 
+        <br>
+        <br>
+        You need a key to decrypt HTTPS or SSL traffic.
+        <br>
+        <br>
+        Since this labs provides the keys already, this is the method you can use to use a SSL decrypting key.
+        <ul>
+            <li>Goto Edit: Preferences -> Protocols </li>
+            <li>TLS -> (Pre)-Master-Secret log filename </li>
+            <li>Browse to where it is stored</li>
+        </ul>
+        <img src="../images/wireshark1/ssl key.PNG" alt="sslkey">
+        <br>
+        <br>
+        Once you enable, and retype the filter, you can right-click and follow TLS stream and see that the data is decrypted to be able to see the HTTP requests and metadata underneath.
+        <br>
+        <br>
+        <img src="../images/wireshark1/decryptedtraffic.PNG" alt="dectraffic">
+        <br>
+        <br>
+        Now use this filter: 
+        <br>
+        <br>
+        <div id="inner-div">
+        (http.request or tls.handshake.type eq 1) and !(ssdp)
+        </div>
+        <br>
+        <br>
+        With this, you can see there are multiple requests including GET, POST, but there is a particular GET request that is requesting a dll.
+        <br>
+        <br>
+        <br>
+        <img src="../images/wireshark1/new filter.PNG" alt="newfilterws1">
+        <br>
+        <br>
+        As a malware analyst or threat hunter, you would need to download the contents of the dll as a dll file and analyze it through other utilities or applciations like VirusTotal. 
+        <br>
+        <br>
+        Since it is already decrypted, you want to export it as a file:
+        <ul>
+            <li>File -> Export Objects -> HTTP Objects</li>
+            <li>Click on the packet </li>
+            <li>Save onto the desktop </li>
+        </ul>
+        <img src="../images/wireshark1/exportasdll.PNG" alt="exportasdll">
+        </p>
+        <h3>VirusTotal: Dridex</h3>
+        <p>
+        Next, open up a utility for malware analysis like virustotal.
+        <br>
+        <br>
+        <a href="https://www.virustotal.com/gui/home/upload" id="keylog-link">VirusTotal: https://www.virustotal.com/gui/home/upload</a>
+        <br>
+        <br>
+        Import the file that we have just exported from wireshark of the suspicious packet.
+        <br>
+        <br>
+        When entered and click search, the information below is displayed: 
+        <br>
+        <br>
+        <a href="https://www.virustotal.com/gui/file/31cf42b2a7c5c558f44cfc67684cc344c17d4946d3a1e0b2cecb8eb58173cb2f/details" id="keylog-link">https://www.virustotal.com/gui/file/31cf42b2a7c5c558f44cfc67684cc344c17d4946d3a1e0b2cecb8eb58173cb2f/details</a>
+        <br>
+        <br>
+        <br>
+        <img src="../images/wireshark1/virustotalpage.PNG" alt="ws1virustotalpage">
+        <br>
+        <br>
+        The information regarding this particular page is referring to the Dridex malware:
+        <br>
+        <br>
+        <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa19-339a" id="keylog-link">CISA Website: https://www.cisa.gov/news-events/cybersecurity-advisories/aa19-339a</a>
+        Dridex malware is a type of trojan that has been designed for stealing sensitive information from infected computers linked towards financial and personal information. 
+        <br>
+        <br>
+        The malware is primarily spread and exposed to users through popular documents such as Microsoft Office documents or ZIP archive files. 
+        <br>
+        <br>
+        Once downloaded, the computer begins to monitor user behavior, once they attempt to log onto banking sites, it employs techniques of keylogging in order to capture credentials. 
+        <br>
+        <br>
+        This information is then sent to a C2 (command and control) server which is controlled by the attackers.
+        <br>
+        <br>
+        Through further analysis, you can see there are particular POST requests being made to a particular Destination address to a file called docs.php. 
+        <br>
+        <br>
+        These requests were being made after the malware was downloaded. 
+        <br>
+        <br>
+        After following TLS stream, you can see that this is a C2 server that is going through a MiTM proxy.
+        <br>
+        <br>
+        <img src="../images/wireshark1/c2mitm.PNG" alt="ws1c2mitm">
+        <br>
+        <br>
+        <br>
+        You can view the system infected by seeing the source ip which is 10.4.1.101. 
+        <br>
+        <br>
+        Next, typing into the display filter nbns, you can see that the name of the workstation is DESKTOP-U54AJ8K.
+        <br>
+        <br>
+        <br>
+        <img src="../images/wireshark1/nbns1.PNG" alt="ws1nbns1">
+        <br>
+        <br>
+        <br>
+        With this information, you are able to hand down this information to the relevant teams such as an incident response to start analyzing the infected system and the scope of the infection.
+        </p>
     </div>
 </body>
 </html>
