@@ -35,7 +35,8 @@
     }
 
     .icon-link {
-      margin: 5px; /* Adjust the margin as needed for spacing */
+      margin: 10px; /* Increase margin for spacing */
+      transition: transform 0.3s; /* Add a transition for smooth expansion */
     }
 
     /* Adjust the width and height to make the icons smaller */
@@ -43,28 +44,33 @@
       width: 40px; /* Adjust the width as needed */
       height: 40px; /* Adjust the height as needed */
     }
+
+    /* Apply expansion effect on hover */
+    .icon-link:hover {
+      transform: scale(1.4); /* Adjust the scaling value for expansion */
+    }
   </style>
 
   <title>Contact Me -- Daniel Lee Portfolio</title>
 </head>
 <body>
   <!-- Apply inline style to adjust margin only for this page -->
-  <iframe id="iframe-navlink" src="navlink.html" title="navigation links" style="margin-bottom: 10px;"></iframe>
-  
-  <div class="icon-links">
-    <a href="https://www.linkedin.com/in/daniel-lee-32a954184" class="icon-link">
-      <img src="../icons/linkedin.png" alt="linkedin Icon">
-    </a>
+  <iframe id="iframe-navlink" src="navlink.html" title="navigation links"></iframe>        
+    <div class="icon-links">
+        <a href="https://www.linkedin.com/in/daniel-lee-32a954184" class="icon-link">
+        <img src="../icons/linkedin.png" alt="linkedin Icon">
+        </a>
 
-    <a href="https://github.com/jhyungleeCS" class="icon-link">
-      <img src="../icons/github.png" alt="Github Icon">
-    </a>
+        <a href="https://github.com/jhyungleeCS" class="icon-link">
+        <img src="../icons/github.png" alt="Github Icon">
+        </a>
 
-    <a href="mailto:jhyunglee.cs@gmail.com" class="icon-link">
-      <img src="../icons/envelope.png" alt="Email Icon">
-    </a>
-  </div>
+        <a href="mailto:jhyunglee.cs@gmail.com" class="icon-link">
+        <img src="../icons/envelope.png" alt="Email Icon">
+        </a>
+    </div>
 </body>
 </html>
+
 
 
