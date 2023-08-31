@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/navlink.css">
+    <link rel="stylesheet" href="../css/writeup.css">
+    <!-- link rel="stylesheet" href="../css/whoami.css"-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <title>Virtualization: Containers vs VMs - Mangoclient's Portfolio</title>
+</head>
+<body>
+    <iframe id="iframe-navlink" src="../html/navlink.html" title="navigation links"></iframe>
+    <div id="div3">
+        <h1 id="h1whoami">Virtualization: Containers vs VMs </h1>
+        <h3>Virtualization. What is it? </h3>
+        <p>
+        Virtualization is a technology that allows users to create multiple virtual instances on a single physical machine. 
+        <br>
+        <br>
+        These “instances” can be different computers, servers, operating systems, applications, and even networks. 
+        <br>
+        <br>
+        Before virtualization, if a user or company wanted to host different operating systems and its associated applications, they would need an individual physical server or computer dedicated to the specific operating systems. 
+        <br>
+        <br>
+        They found this to be high in cost and resources. Now, virtualization addresses these issues by abstracting the underlying hardware and creating virtual environments. 
+        <br>
+        <br>
+        There are two different types of virtualization methods: containers and virtual machines. 
+        </p>
+        <h3>What is a VM? </h3>
+        <p>
+        A VM or virtual machine is an isolated instances of operating systems and applications running on top of a hypervisor. 
+        <br>
+        <br>
+        Each VM behaves like a separate physical computer, but share the same hardware as the physical computer/server. 
+        <br>
+        <br>
+        To build a virtual machine, you start off with hardware such as a server. 
+        <br>
+        <br>
+        On top of this is software or a hypervisor. 
+        <br>
+        <br>
+        A hypervisor is what allows one machine to run multiple virtual machines. It helps control the sharing of a machine’s hardware. 
+        <br>
+        <br>
+        On top of the hypervisor is the own virtual machine with their own operating system. 
+        <br>
+        <br>
+        On top of the operating system, there are applications that they are running. 
+        <br>
+        <br>
+        A VM seems like a create replacement instead of having multiple physical systems, and they are, however, because of the large amount of layers that they host, they consume a lot of RAM and CPU power from the physical computer. 
+        <br>
+        <br>
+        Additionally, they consume a lot of disk space since each VM has their own dedicated operating system. 
+        </p>
+        <h3>What is a container? What is Docker? </h3>
+        <p>
+        A container is similar to a virtual machine. However, instead of having their own operating system, they only contain an application. 
+        <br>
+        <br>
+        This application has been packaged with all the files, configurations, and dependencies that are necessary for it to run. 
+        <br>
+        <br>
+        For example if a developer were to create a web server and wanted to host it on any other computer, they can create a container for the website by bundling it with everything it takes to host it (libraries, modules, databases, etc) and distribute it to host it on any other server. 
+        <br>
+        <br>
+        Containers start off with a phyiscal server, then on top is an operating system. Next, instead of using a hypervisor, containers use something called a container engine. It helps unpack the container files and hands them off to the operating system kernel. 
+        <br>
+        <br>
+        While VMs contain an entire operating system, making filesizes larger, containers share the underline operating system and only contain an application, making it smaller and lightweight/fast. Howevre, because of this the container must be packaged to work with the same operating system of the hardware. (Can’t run windows on linux and vice). Since containers share underline operating system, if the operating system crashes, all the containers go down as well. 
+        <br>
+        <br>
+        However, because of their advantages of being lightweight, containers consume less ram and cpu power from the server than VMs. The leading application that is responsible for building containers is Docker. Docker, in short, is a platform that facilitates the development, deployment, and management of applications using containerization. 
+        <br>
+        <br>
+        There are three things important when using Docker.
+        <uL>
+            <li>The DockerFile: blueprint for building a Docker image </li>
+            <li>Image: The template for running docker containers </li>
+            <li>Container: the running process for hosting an application </li>
+        </uL>
+        Once a repository hold code ready to be hosted, the user can create a dockerfile to build the docker image. The docker image can be read in a layer format, causing the dockerfile to consider each step as its own layer. 
+        <br>
+        <br>
+        Once the DockerFile is created, the user can build the image using the command: 
+        <br>
+        <br>
+        <div id="inner-div">
+        docker build -t username/imageName:version number. 
+        </div>
+        <br>
+        The -t gives a image a name tag for easier access later.
+        <br>
+        <br>
+        Now, you can run the image by running the command:
+        <br>
+        <br>
+        <div id="inner-div">
+        docker run (container)
+        </div>
+        <br>
+        <br>
+        If the container is hosted on a webpage for example, you can use port forwarding by using the -p switch including the port numbers in the local machine and container.
+        </p>
+        <h3>What do companies use? </h3>
+        <p>
+        Companies use both Docker containers as well as virtual machines in order to meet their specific requirements based on the application of choice, workloads, and goals that they have. 
+        <br>
+        <br>
+        VMs could host legacy applications or provide strong isolation for security tests and workloads, while containers can be used to employ microservices. Their decisions often depend on the what they can trade off in terms of isolation and resource use. 
+        </p>
+    </div>
+</body>
+</html>
