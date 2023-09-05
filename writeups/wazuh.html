@@ -49,9 +49,17 @@
             Run the command ls -al and cat the .deployment-secrets.txt file
             <br>
             <br>
+            <img src="../images/wazuh/adminandpw.PNG" alt="wazuh1adminandpw">
+            <br>
+            <br>
             Run over to the Networks tab in the Linode dashboard and copy the RDNS and type into your web browser: https://RNS
             <br>
             <br>
+            Once you are redirected to the application, use the admin login and admin password to access.
+            <br>
+            <br>
+            <img src="../images/wazuh/RDNS.PNG" alt="wazuh1RDNS">
+            
         </p>
         <h3>Adding Agents</h3>
         <p>
@@ -67,6 +75,13 @@
                 <li>Lastly, Install and enroll the agent by copying and pasting the command into your terminal of your agent.</li>
                 <li>Start the agent by doing the same, copying and pasting the command into your terminal of your agent.</li>
             </ul>
+            In this example, I created two agents for two of my virtual machines on my VMware Workstation. One agent running Kali Linux and the other running Windows 11. 
+            <br>
+            <br>
+            <img src="../images/wazuh/creatingagent.PNG" alt="wazuh1ca1">
+            <br>
+            <br>
+            <img src="../images/wazuh/creatingagentwindows.PNG" alt="wazuh1ca2">
         </p>
         <h3>Exploring the Wazuh Dashboard</h3>
         <p>
@@ -91,6 +106,8 @@
             <div id="inner-div">
                 directories realtime="yes" report_changes="yes" check_all="yes">C:\Users\virtu\Desktop /directories
             </div>
+            <br>
+            <img src="../images/wazuh/editsyscheck.PNG" alt="editsyscheckwaz">
             <ul>
                 <li>Now, file -> save the file</li>
                 <li>Restart the Wazuh service by running this command:</li>
@@ -101,6 +118,7 @@
             <ul>
                 <li>Now to test this, you can create/modify/delete a file and these changes should be shown in the Integrity Monitoring Window of your Wazuh application.</li>
             </ul>
+            <img src="../images/wazuh/changesmade.PNG" alt="changesmadewaz1">
 
 
         </p>
