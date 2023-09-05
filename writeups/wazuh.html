@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/navlink.css">
+    <link rel="stylesheet" href="../css/writeup.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <title>Security Event Monitoring with Splunk - Mangoclient's Portfolio</title>
+</head>
+<body>
+    <iframe id="iframe-navlink" src="../html/navlink.html" title="navigation links"></iframe>
+    <div id="div3">
+        <h1 id="h1whoami">Wazuh</h1>
+        <h3>What is Wazuh? </h3>
+        <p>
+        Wazuh is an open-source security monitoring platform designed for threat detection, visibility, and compliance. It helps organizations analyze and manage security events and incidents across their environments. 
+        <br>
+        <br>
+        Wazuh has multiple features including:
+        <ul>
+            <li>Log analysis: collects and analyzes logs from various sources, such as OS, applications, network devices, and more. It processes these logs to identify potential security threats, anomalies, and suspicious activities.</li>
+            <li>Intrusion Detection: uses rules and decoders to detect intrusion attempts and known attack patterns. It monitors for signs of unauthorized access, malware infections, and other malicious activities.</li>
+            <li>Real-time alerts: identifies a potential security incident, it generates real-time alerts to notify administrators or security teams. These alerts help organizations respond swiftly to threats.</li>
+        </ul>
+        </p>
+        <h3>Linode Installation for Wazuh Lab</h3>
+        <p>
+        <ul>
+            <li>Click on create Linode</li>
+            <li>Goto Marketplace</li>
+            <li>Click on Wazuh Pre Installation Setup</li>
+            <li>Enter an email for SSH certificate</li>
+            <li>create sudo user and password</li>
+            <li>select the Ubuntu 22.04 LTS image</li>
+            <li>select a region most closest to you</li>
+            <li>Next click on Linode plan and select Wazuh recommended size: 4GB</li>
+            <li>Finally enter a root password, and click create Linode</li>
+        </ul>
+        </p>
+        <h3>Accessing the Wazuh Instance</h3>
+        <p>
+            To access the instance, copy and paste the ssh access command into a terminal.
+            <br>
+            <br>
+            Run the command ls -al and cat the .deployment-secrets.txt file
+            <br>
+            <br>
+            Run over to the Networks tab in the Linode dashboard and copy the RDNS and type into your web browser: https://RNS
+            <br>
+            <br>
+        </p>
+        <h3>Adding Agents</h3>
+        <p>
+            Agents are referred to as the software components that are installed on individual hosts or systems to collect security-related data and send it to a centralized Wazuh manager or server for analysis and monitoring.
+            <br>
+            <br>
+            Here are the steps to adding an agent in Wazuh:
+            <ul>
+                <li>Click on Add Agent -> Deploy a new agent</li>
+                <li>Choose the Operating System of your choice</li>
+                <li>Connect the Wazuh server address (FQDN). This can be found in the in the Networks tab of your Linode Dashboard, under Reverse DNS.</li>
+                <li>Create an Agent name and select the default group</li>
+                <li>Lastly, Install and enroll the agent by copying and pasting the command into your terminal of your agent.</li>
+                <li>Start the agent by doing the same, copying and pasting the command into your terminal of your agent.</li>
+            </ul>
+        </p>
+        <h3>Exploring the Wazuh Dashboard</h3>
+        <p>
+            When clicking on a particular agent, you can see the dashboard that displays many different aspects.
+            <ul>
+                <li>MITRE framework: shows the database of hacking techniques that hackers use to attack your computer.</li>
+                <li>Compliance, standards that are listed that tell you what policies are are ongoing and eusring that these violations are resolved.</li>
+                <li>Configurations (Secure Configuration Assessment): the process of verifying that all systems conform to set a predefined rules regarding configuration settings and approved application usage. When clicked, you can break down checks to make sure you are reducing the amount of vulnerability surfaces and attack vectors on that particular machine/agent, rationale on why they're mentioning the failure, how to fix it (remediation), and even compliance policies and numbers.</li>
+            </ul>
+        </p>
+        <h3>File Integrity Monitoring</h3>
+        <p>
+            In Wazuh, there is a section that helps detect and inform users when a file has been modified, added, or deleted in a system. In order to enable this, a user should conduct the following:
+            <br>
+            <br>
+            Head to this directory in Windows File Explorer:
+            <ul>
+                <li>This PC -> Local Disk (C:) -> Program Files (x86) -> ossec-agent -> ossec.conf</li>
+                <li>Command F "syscheck" to goto the File Integrity Monitoring section</li>
+                <li>Add in a new configuration:</li>
+            </ul>
+            <div id="inner-div">
+                directories realtime="yes" report_changes="yes" check_all="yes">C:\Users\virtu\Desktop /directories
+            </div>
+            <ul>
+                <li>Now, file -> save the file</li>
+                <li>Restart the Wazuh service by running this command:</li>
+            </ul>
+            <div id="inner-div">
+                restart-service -name Wazuh 
+            </div>
+            <ul>
+                <li>Now to test this, you can create/modify/delete a file and these changes should be shown in the Integrity Monitoring Window of your Wazuh application.</li>
+            </ul>
+
+
+        </p>
