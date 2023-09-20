@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/navlink.css">
+    <link rel="stylesheet" href="../css/writeup.css">
+    <!-- link rel="stylesheet" href="../css/whoami.css"-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <title>Virtualization: Containers vs VMs - Mangoclient's Portfolio</title>
+</head>
+<body>
+    <iframe id="iframe-navlink" src="../html/navlink.html" title="navigation links"></iframe>
+    <div id="div3">
+        <h1 id="h1whoami">Understanding Attack Frameworks </h1>
+        <h3>What is an Attack Framework?  </h3>
+        <p>
+        Simply put, an attack framework is a playbook or set of strategies that are used in cyberattacks. These frameworks are used to plan and execute attacks on computer systems and networks. 
+        <br>
+        <br>
+        Attack frameworks help dictate and outline various tactics, techniques, and procedures or TTP. The goal of these frameworks is to understand how attackers operate to decrease the impact of future attacks. In this post, I’ve included some popular attack frameworks and terms that are used commonly when discussing threats and threat actors. 
+        </p>
+        <h3>What is a Cyber Kill Chain? </h3>
+        <p>
+            A kill chain is a term that is used by the military, and is a concept that helps distinguish a format of an attack. The cyber kill chain idea was brought along mimic this format since they can hold many different similarities. 
+            <br>
+            <br>
+            A kill chain usually starts with: 
+            <ul>
+                <li>Identification of a target </li>
+                <li>Dispatching resources to the target</li>
+                <li>Someone deciding to attack and give the order </li>
+                <li>Ends with the destruction of the target </li>
+            </ul>
+            <br>
+            The cyber kill chain idea was first developed by Lockheed Martin and has a similar order from start to finish: 
+            <uL>
+                <li>Reconnaissance: researching, identifying, and selecting targets </li>
+                <li>Weaponization: malware (RAT), is embedded within a deliverable payload, such as a MS Office document</li>
+                <li>Delivery: payload is transmitted to the target, malware is often delivered as an attachment within a phishing email</li>
+                <li>Exploitation: after the weapon is delivered, it activates and triggers the exploit. Exploits often target an application or operating system vulnerability</li>
+                <li>Installation: exploit will often install a RAT or a backdoor on the attacked system. (Allows the attacker to maintain persistence inside the exploited environment)</li>
+                <li>Command and Control (C2): Infected systems often send out a beacon to an Internet=facing server. Establishes the C2 channel, giving attackers full access to the infected system </li>
+                <li>Actions on Objectives: attackers can begin taking action to achieve their ultimate goals. Could be installing ransomware, or collecting, encrypting, and extracting data form the infected environment </li>
+            </uL> 
+        </p>
+        <h3>What is the Diamond Model of Intrusion Analysis? </h3>
+        <p>
+            The Diamond Model of Intrusion Analysis is a framework that helps focus on understanding the attacker by analyzing four key components of every intrusion event. 
+            <br>
+            <br>
+            These four components include: 
+            <ul>
+                <li>Adversary: identified by email addresses, handles used in online forums, memberships in advanced persistent threat groups, and other identifiers.</li>
+                <li>Capabilities: refer to the malware, exploits, and other hacker tools used in the intrusion.</li>
+                <li>Infrastructure: refers to the Internet domain names, email addresses, and IP addresses used by the adversary </li>
+                <li>Victim: can be identified by their names, email addresses, or network identifiers </li>
+            </ul>
+            Usually starts with the idea that every intrusion event has an adversary that uses a capability across an infrastructure against a victim. 
+            <br>
+            <br>
+            These core components can be mapped to different phases of a cyber kill chain.  The same adversary performs reconnaissance, delivers a weapon, exploits a vulnerability, and so on through the cyber kill chain. 
+            <br>
+            <br>
+            The capabilities, infrastructure, and victim may change within the kill chain, but the adversary remains the same. By analyzing these components in multiple attacks, it reveals similarities. 
+        </p>
+        <h3>What is the MITRE ATT&CK </h3>
+        <p>
+            The MITRE ATT&CK (Adversarial Tactics, Techniques, and Common Knowledge) framework is a knowledge base of tactics and techniques used in real-world attacks. 
+            <br>
+            <br>
+            Tactics represent the adversary's tactical objective for performing an action or why the adversary is doing what he's doing.
+            <br>
+            <br>
+            The techniques document how an adversary achieve a tactical objective or what the adversary gains by performing an action.
+            <br>
+            <br>
+            MITRE ATT&CK is complementary to Lockheed's cyber kill chain, however, it isn't an ordered set of steps like the kill chain.
+            <br>
+            <br>
+            Instead, it’s a matrix of tactics and techniques used by attackers at different stages of an attack. 
+            <br>
+            <br>
+            The tactics in the matrix are: 
+            <ul>
+                <li>Initial access</li>
+                <li>Execution </li>
+                <li>Persistence </li>
+                <li>Privilege escalation</li>
+                <li>Defense evasion </li>
+                <li>Credential access</li>
+                <li>Discovery</li>
+                <li>Lateral movement </li>
+                <li>Collection and exfiltration </li>
+                <li>Command and Control </li>
+            </ul>
+            The matrix lists these tactics along the top, in each tactic column, it lists techniques used to achieve the tactic
+            <br>
+            <br>
+            MITRE is a not-for-profit organization that receives federal funding to perform research and development in cybersecurity. 
+            <br>
+            <br>
+            They also maintain the Common Vulnerabilities and Exposures (CVE) system and the Common Weakness Enumeration (CWE) project. 
+            <ul>
+                <li>The CVE has become the standard for naming vulnerabilities and exposures and is used by Security Content Automation Protocol (SCAP) when naming vulnerabilities. </li>
+                <li>The CWE project identifies software weaknesses and vulnerabilities in over 600 categories, and cybersecurity professionals have been creating automated tools to identify, fix, and prevent each of the issues listed in the CWE</li>
+            </ul>
+        </p>
+    </div>
+</body>
+</html>
