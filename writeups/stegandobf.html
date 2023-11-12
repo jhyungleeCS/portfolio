@@ -19,8 +19,119 @@
         <h1 id="h1whoami">Steganography with Obfuscation Made Simple </h1>
         <h3>What is Steganography? </h3>
         <p>
+        Steganography is the act of concealing or hiding a message, file, image, or video within another medium or file in order to conceal its existence. 
+        <br>
+        <br>
+        The main goal or reasons for using steganography is to hide the information in order to make it difficult to detect. 
+        <br>
+        <br>
+        Depending on the type of file used, there are multiple different ways that a file can be hidden within another file. 
+        <br>
+        <br>
+        Steganography is different from cryptography, it doesnt encrypt data which means it cant be classified as either symmetric or asymmetric. 
+        <br>
+        <br>
+        But the main goal is to focus on making the content of a message unreadble or obfuscating it from unexpected or unauthoirzed users. 
         </p>
         <h3>What is Obfuscation? </h3>
+        <p>
+        Obfuscation is a method used in order to attempt to make something unclear or difficult to understand. There are different types of obfuscation when it comes to computers and computer programming. 
+        <br>
+        <br>
+        In the context of steganography, obfuscation helps hide the presence of hidden information within a carrier. Obfuscation can be applied to steganography in many ways. 
+        <br>
+        <br>
+        Some of the following includes data concealment techniques. injecting pseudo-random noise to help mask presence, making a dynamic payload size, and false information insertion. 
+        <br>
+        <br>
+        There are three primary types of files used with obfuscating with steganography: 
+        <ul>
+            <li>image</li>
+            <li>audio</li>
+            <li>video</li>
+        </ul>
+        </p>
+        <h3>Image Steganography</h3>
+        <p>
+        Image steganography is the practice of hiding data within image files such as .jpeg or .gif file. There are two common ways that this is done: manipulating the bits of a file or by hiding data in the white space. 
+        <br>
+        <br>
+        Image steganography embeds a message into a file by modifying the least significant bit in some of the individual bytes of a file. Because you are modifying the least significant bit, the changes to the file wont be perceptible to anyone viewing the image. 
+        <br>
+        <br>
+        The following is an real world example of image steganography: 
+        <br>
+        <ul>
+            <li>imagine a pixel of an image is red (having the RGB value of 255,0,0)</li>
+            <li>if you change the least significant bit of red from 255 to 254, giving the pixel a value of 254, 0, 0, the change can't be perceived on a monitor</li>
+            <li>if the image file is large, it's possible to hide a large file within it</li>
+            <li>many files have unused space (called white space) at the end of file clusters</li>
+            <li>imagine a small 6-KB file stored in two 4-KB clusters</li>
+            <li>it has an extra 2KB of unused space and it's possible to fill this white space with a message</li>
+            <li>a benefit of using this method is that it is possible to embed a message without altering the size of the file</li>
+        </ul>
+        </p>
+        <h3>Audio Steganography</h3>
+        <p>
+        With audio steganography, this method takes advantage of the limitations of a human ear. 
+        <br>
+        <br>
+        Ideally, a human ear can detect sounds in the frequency range of 20 Hz and 20 KHz. Additionally, most humans can't detect sounds between 18 KHz and 20 KHz, but these sounds can be detected by most microphones. 
+        <br>
+        <br>
+        These sounds, commonly called audio beacons, are used to identify user activity. With this in mind, there can be manipulation done to audio file in order to add additional data that can be later picked up or determined using microphones or other tools.
+        </p>
+        <h3>Video Steganography</h3>
+        <p>
+        Video steganography is an extension of image steganography and it embeds messages into videos. 
+        <br>
+        <br>
+        Videos have become quite popular on the Internet through sites such as Facebook, YouTube, and TikTok. Because video files are typically large, a common method is to modify the least significant bits of some bytes within the file to embed a message. 
+        <br>
+        <br>
+        However, a drawback of video steganography is that it can cause noise in the audio. In order to avoid this, many video steganography methods only modify the image portion of video files and they leave the audio portion intact. 
+        </p>
+        <h3>GO#WEBBFUSCATOR</h3>
+        <p>
+        Steganography can be used for both legitimate and illegitimate reasons. In 2022, NASA had released its first images from the Webb Telescope. Some of these images included populer images including the First Deep Field image as well as “Cosmic Cliffs” in Carina image. 
+        <img src="../images/stegano/web1.png" alt="stega1">
+        <br>
+        <br>
+        <img src="../images/stegano/web2.png" alt="stega2">
+        <br>
+        <br>
+        These images were popular for a period of time, and had many eyes drawn towards its beauty and detailing. Because of its popularity, it seemed like a perfect attack vector for attackers to prey on victims with. Threat hunters have spotted a new malware campaign which was named “GO#WEBBFUSCATOR” which focused on using image steganography from the famous sapce images by the James Webb telescope. 
+        <br>
+        <br>
+        The campaign focused on lurking users with phishing emails, malicious documents and executables hidden behind these images. 
+        <br>
+        <br>
+        The infection began with a phishing email that had an attached malicious document which was named, “Geos-Rates.docx”. This document had contained external information including a VBS macro that executes if marcos were enabled in MS Office. The code was obfuscated and  deep within the file’s metadata. The code downloaded a JPG image named “OxB36F8GEEC634.jpg” from a remote resource and decoded it into an executable using certutil.exe. 
+        <br>
+        <br>
+        When the image was opened, it displayed an image of the famous galaxy cluster but when it was opened with a text editor, the image had additional content which was encoded in base64 that turns into a 64 bit executable. 
+        <br>
+        <br>
+        Obfuscation is used with software code to make it even harder to read. The payload had contained obfuscated code which used a ROT25 algorithm while the binary used XOR. Famous security vendors such as VirusTotal also ran the image as safe or undetected because of use-case alterations that helped pass by signature-based detection tools. 
+        <br>
+        <br>
+        When talking about the malware itself, once executed, the malware first copied itself to the:
+        <div id="inner-div">
+            %%localappdata%%\microsoft\vault\ 
+        </div>
+        <br>
+        <br>
+        and added a new registry key in order to maintain persistence on the victim system. 
+        <br>
+        <br>
+        Next, it connected the network to a remote C2 server in order to send queries that responded to the malware by setting connection requests, timing out certain functions and commands in the system, and sneding out commands to execute in the system cmd.exe tool. 
+        <br>
+        <br>
+        The threat hunters responsible for gathering information and insite about this attack was Securonix. More can be read about their research on how hackers had leveraged a legitimate image in order to phish users into a unsuspected attack. 
+        <br>
+        <br>
+        <a href="https://www.securonix.com/blog/golang-attack-campaign-gowebbfuscator-leverages-office-macros-and-james-webb-images-to-infect-systems/ " id="keylog-link">https://www.securonix.com/blog/golang-attack-campaign-gowebbfuscator-leverages-office-macros-and-james-webb-images-to-infect-systems/ </a>
+        </p>
     </div>
 </body>
 </html>
