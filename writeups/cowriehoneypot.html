@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/navlink.css">
+    <link rel="stylesheet" href="../css/writeup.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <title>Steer Attackers Away With Honey - Daniel Lee's Portfolio</title>
+</head>
+<body>
+    <iframe id="iframe-navlink" src="../html/navlink.html" title="navigation links"></iframe>
+    <div id="div3">
+        <h1 id="h1whoami">Steer Attackers Away With Honey</h1>
+        <a href="https://github.com/cowrie/cowrie" id="keylog-link">SOURCE CODE: https://github.com/cowrie/cowrie</a>
+        <a href="https://cowrie.readthedocs.io/en/latest/" id="keylog-link">DOCUMENTATION: https://cowrie.readthedocs.io/en/latest/ </a>
+        <a href="https://github.com/paralax/awesome-honeypots?tab=readme-ov-file#readme  " id="keylog-link">AWESOME HONEYPOTS REPO: https://github.com/paralax/awesome-honeypots?tab=readme-ov-file#readme  </a>
+        <h3>What is a honeypot? </h3>
+        <p>
+            A honeypot is a sweet looking server, intended to lure attacks similar to how honey looks sweet to a bear. It is a tactic used by security professionals that can be left open or “locked down” with low efforts to allow an attacker to easily access it.  
+        <br>
+        <br>
+        The intent is to draw attackers to this easy target so they can spend most of their resources and time trying to access this fake vulnerable network rather than the live network. 
+        <br>
+        <br>
+        The honeypot can be used to detect, deflect, and be used to gather intelligence on an attacker, essentially a trap. 
+        </p>
+        <h3>Two Types of Pots</h3>
+        <p>
+        There are two types of honeypots: an interactive and non-interactive. 
+        <br>
+        <br>
+        An interactive honeypot is used to help administrators respond to incoming traffic to the honeypot while an non-interactive honeypot just gathers the information/traffic that is coming in from the attacker. 
+        <br>
+        <br>
+        Both can have their own benefits depending on factors such as desired level of detail in attack analysis, maintenance, and level of risk available for an organization.
+        </p>
+        <h3>Creating Your own Honeypot</h3>
+        <p>
+        In the future, I want to mess around and configure and build my own honeypot. With a bit more knowledge, I want to be able to create one that can best suite my own needs in my home network. \
+        <br>
+        However, for now, I will be building one from the popular github repository in the beginning of this post: Cowrie. 
+        </p>
+        <h3>Cowrie</h3>
+        <p>
+        Cowrie is a low interactive SSH honeypot that is designed to log any brute force attacks and the shell interaction performed by attackers. 
+        <br>
+        <br>
+        It’s a Python-based system that emulates the services often targeted by attackers, SSH. The primary purpose of Cowrie is to gather intelligence about TTPs used by attackers, which can be analyzed to improve network defenses and security measures. 
+        <br>
+        <br>
+        It can also be used to log commands that an attacker uses while they believe they are SSH’d into a host.  
+        </p>
+        <h3>Setting Up Cowrie</h3>
+        <p>
+        To run the cowrie honeypot, I used the docker version to give it a quick run. 
+        <br>
+        <br>
+        First I cloned the repository by using this command:
+        <div id="inner-div">
+        git clone https://github.com/cowrie/cowrie.git 
+        <br>
+        </div>
+        <br>
+        Once the repository is installed into my local computer, I ran this command to start the app: 
+        <br>
+        <br>
+        <div id="inner-div">
+        docker run -p 2222:2222 cowrie/cowrie:latest  
+        <br>
+        </div>
+        <br>
+        <br>
+        This command is used in order to build the pot and should display a message at the end saying “ready to accept ssh connections” if ran properly. The commands read as a docker coontainer being ran to listen on port 2222 on the host machine to port 2222 inside the container using the -p flag. Lastly, it is reading from the imae created called cowrie/cowrie. 
+        </p>
+        <h3>Threat/Attacker POV</h3>
+        <p>
+        In the attacker’s machine, they may typically first run a nmap scan in order to find any open ports that are visible on a network. 
+        <br>
+        <br>
+        Since we have the cowrie honeypot running a ‘ssh’ on port 2222, it will be displayed when an attacker scans our local network. A typical nmap scan would look like this: 
+        <br>
+        <div id="inner-div">
+        nmap -Pn -p 2222 -sV 192.168.191.128  
+        <br>
+        </div>
+        <br>
+        <br>
+        The scan helps show any open ports that are discoverable on a network, with the -Pn flag being used to discover any hosts regardless of their status and the -p flag to specify a specific port number and -sV to help with version detection during the scan. 
+        <br>
+        <br>
+        The next step would most likely include the attacker attempting to SSH into the port found at the particular host. They would use a command similar to this: 
+        <br>
+        <br>
+        <div id="inner-div">
+        ssh -p 2222 root@192.168.191.128  
+        <br>
+        </div>
+        <br>
+        The cowrie pot is configured to accept any password so when prompted, the attacker may enter any password and to their ‘surprise’ be able to successfully ssh as root. 
+        <br>
+        <br>
+        <img src="../images/cowrie/cowriehoneypot.PNG" alt="cowriehp">
+        </p>
+        <h3>POV from the Honeypot</h3>
+        <p>
+        While this is happening, the cowrie pot is quietly logging all information that is coming from the attacker’s machine. 
+        <br>
+        <br>
+        Information including the time stamp, particular command, and even the output generated by the attacker’s actions. THis comprehensive logging enables security professionals to analyze the attacker’s behavior, identify attack patterns, and fortify defenses against similar incursions in the future. 
+        <br>
+        <br>
+        With the incoming information, I was able to use the tcpdump tool to log all the incoming traffic from the attacker’s machine to the localhost by running this small script: 
+        <br>
+        <br>
+        <div id="inner-div">
+        if [ ! -f /home/danDesktop/traffic.pcap ]; then sudo touch /home/dan/Desktop/traffic.pcap; fi && sudo tcpdump -w /home/dan/Desktop/traffic.pcap -i eth0 port 2222 
+        <br>
+        </div>
+        <br>
+        <br>
+        <img src="../images/cowrie/tcpdumpcapture.PNG" alt="tcpdumpcapcowrie">
+        <br>
+        <br>
+        These captures can then be redirected to a text or pcap file which can be analyzed through log and traffic sniffing tools such as Wireshark. 
+        <br>
+        <br>
+        <br>
+        <img src="../images/cowrie/pcapcapture.PNG" alt="cowriepcapcap">
+        </p>
+    </div>
+</body>
+</html>
