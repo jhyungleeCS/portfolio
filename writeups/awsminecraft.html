@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/navlink.css">
+    <link rel="stylesheet" href="../css/writeup.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <title>Every Kid's Dream..a Minecraft server - Daniel Lee's Portfolio</title>
+</head>
+<body>
+    <iframe id="iframe-navlink" src="../html/navlink.html" title="navigation links"></iframe>
+    <div id="div3">
+        <img src="../images/awsminecraft/minecraftwallpaper.png" alt="mcwallpapaws">
+        <h1 id="h1whoami">Every Kid's Dream..a Minecraft server</h1>
+        <h3>My History with Minecraft </h3>
+        <p>
+        Growing up, I loved to play games, Minecraft in particular. At one point, Minecraft was the reason my interest for cybersecurity grew a big amount. 
+        <br>
+        <br>
+        One time when I logged on a server, my friend had mentioned that he couldn’t log in after multiple attempt, and that the connection would time out or the server would lag and everyone would be standing still. 
+        <br>
+        <br>
+        Soon after he mentioned this, I realized I was starting to get the same problems as him. Later, I was informed that the server had been flooded by a DDoS attack. 
+        <br>
+        <br>
+        A DDoS attack is an attempt to disrupt the normal traffic coming in for a server/service. The goal of the attack is to make its target unavailable by causing resource exhaustion. 
+        <br>
+        <br>
+        After the attack happened, I delved deeper into my curiosity about learning how to safeguard myself from an attack in the future, or how a service can mitigate the attacks from happening in the future. 
+        <br>
+        <br>
+        This curiosity helped build my understanding of cybersecurity principles and techniques through researching. 
+        </p>
+        <h3>Getting Started with the Set-Up </h3>
+        <p>
+        I set up my Minecraft server by using Amazon’s AWS EC2 instances they provide in their cloud. 
+        <br>
+        <a href="https://aws.amazon.com/" id="keylog-link">Click here to create a free account: https://aws.amazon.com/  </a>
+        <br>
+        <br>
+        After creating an account I launched an instance, created a name for my machine and used the following configurations for the machine: 
+        <br>
+        <br>
+        <div id="inner-div">
+        Software Image (AMI): Amazon Linux 2023 AMI, 64-bit (x86) architecture 
+        <br>
+        Virtual service type (instance type): t2.medium
+        </div>
+        <br>
+        Next, I created a secure key pair used in order to securely connect to my machine. After creating a key-pair, I saved the key file onto my desktop. 
+        <br>
+        <br>
+        Once done, you can start the instance by clicking: Launch Instance.
+        <br>
+        <br>
+        <img src="../images/awsminecraft/awsminecraft.PNG" alt="awsminecraft">
+        </p>
+        <h3>Connecting to the Instance</h3>
+        <p>
+        Now that the instance is up and running, it is time to connect to the instance. You can do this by opening up a terminal, “cmd” on a Windows machine. 
+        <br>
+        <br>
+        You can use ssh in order to connect to the machine using the key-pair. Use the following command below to access your server: 
+        <div id="inner-div">
+        ssh -i [your private key here] ec2-user@[Public IPv4 DNS] 
+        </div>
+        <br>
+        The -i flag specifies the private key to use when connecting to the server as the user@hostname.
+        </p>
+        <h3>Setting up the Instance</h3>
+        <p>
+        Once connected to the instance, I first created a new directory to help organize my files for the future using this command: 
+        <div id="inner-div">
+        mkdir minecraft-server
+        </div>
+        <br>
+        Next, we need to install the programming language responsible for running Minecraft, Java. You can install the latest version of Java using this command: 
+        <br>
+        <br>
+        <div id="inner-div">
+        sudo yum install java
+        </div>
+        <br>
+        Now that java is installed, we have to install the server.jar file that runs Minecraft multiplayer server. You can head to this website to download the file: 
+        <br>
+        <a href="https://www.minecraft.net/en-us/download/server" id="keylog-link"> https://www.minecraft.net/en-us/download/server</a>
+        <br>
+        Next, once that is installed into our local machine, we have to scp it into our new instance.
+        <br>
+        <br>
+        SCP, or 'secure copy' is a protocol used in conjunction with ssh in order to securely transfer files between two hosts.
+        <br>
+        <br>
+        You can do this by running this command: 
+        <br>
+        <br>
+        <div id="inner-div">
+        scp -i [your private key here] server.jar ec2-user@[Public IPv4 DNS]:/home/ec2-user/minecraft-server
+        </div>
+        </p>
+        <h3>Running the server to set up</h3>
+        <p>
+        Now that we have the server.jar file in our instance we can run the minecraft server by running this command: 
+        <br>
+        <div id="inner-div">
+        java -Xmx3G -Xms3G -jar server.jar nogui
+        </div>
+        <br>
+        Since we selected the t2.medium service for our machine, we can give it around 3 gigabytes of ram for the server. 
+        <br>
+        <br>
+        Next hit run, you may get an error that displays a message saying the terms need to be agreed before proceeding. 
+        <br>
+        <br>
+        Type in ls and you may see these new files that appear in your dir.
+        <br>
+        <br>
+        <img src="../images/awsminecraft/newfilesfromserverjar.PNG" alt="newfilesjar">
+        <br>
+        <br>
+        If this happens, you can open a text editor such as vim and edit the eula.txt file. 
+        <br>
+        <br>
+        <div id="inner-div">
+        sudo vim eula.txt
+        </div>
+        <br>
+        Click i to insert, change the eula-false to eula-true and type :wq! to save your edits and exit out the file. This should allow you to run the server now that you’ve agreed to the terms and conditions. 
+        </p>
+        <h3>Connecting to the server</h3>
+        <p>
+        Once the server is running, you can now connect. 
+        <br>
+        <br>
+        However, before connecting, head to the console page on your aws instance and add two new inbound security groups rules under your network settings. 
+        <br>
+        <br>
+        Add a new group type called Custom TCP giving it a port range of 25565 and a source range of 0.0.0.0/0  and another new group type called Custom UDP giving it the same port range and source range.
+        <br>
+        <br>
+        <img src="../images/awsminecraft/newinboundrules.PNG" alt="newinboundrulesaws">
+        <br>
+        <br>
+        Now that the new rules have been added you can connect to your machine. 
+        <br>
+        <br>
+        Grab the public ipv4 address from your aws instance and copy and paste it to your minecraft client and click ‘join server’.
+        <br>
+        <br>
+        <img src="../images/awsminecraft/intheworld.PNG" alt="intheminecraftworld">
+        <br>
+        <br>
+        You can edit the Minecraft server configurations by heading into the server-properties file. 
+        <br>
+        <br>
+        <img src="../images/awsminecraft/settingscool.PNG" alt="serverpropssettings">
+        <br>
+        <br>
+        You can stop the server by heading to the terminal and entering stop. 
+        </p>
+        <h3>Creating a script to easily run the server</h3>
+        <p>
+        In order to run the server, you would have to run the java command we ran earlier. 
+        <br>
+        <br>
+        Since this may be a hassle to type you can create a bash script and run the script instead of running the command everytime you want to run the server. 
+        <br>
+        <br>
+        Name the script anything, example: start_server.sh
+        <br>
+        <div id="inner-div">
+        #!/bin/sh 
+        <br>
+        cd minecraft-server
+        <br>
+        java -Xxx3G -Xms3G -jar server.jar nogui
+        </div>
+        </p>
+        <h3>Troubleshooting Problems</h3>
+        <p>
+        When first connecting to the newly created instance using ssh, I ran into this problem: 
+        <br>
+        <div id="inner-div">
+        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        <br>
+        @         WARNING: UNPROTECTED PRIVATE KEY FILE!          @
+        <br>
+        @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+        <br>
+        Permissions for 'MYPRIVATEKEY.pem' are too open.
+        <br>
+        It is required that your private key files are NOT accessible by others.
+        <br>
+        This private key will be ignored.
+        <br>
+        Load key "MYPRIVATEKEY.pem": bad permissions
+        <br>
+        ec2-user@[YOUR PUBLIC DNS]: Permission denied (publickey,gssapi-keyex,gssapi-with-mic).
+        </div>
+        <br>
+        The error was given because the permissions that are set on the private key are too open, meaning other users have access to the key. 
+        <br>
+        <br>
+        In order to resolve this issue, I gave permissions to the owner and removed all access for all other groups by running this command: 
+        <br>
+        <br>
+        <div id="inner-div">
+        chmod 400 MYPRIVATEKEY.pem
+        </div>
+        <br>
+        There is also a simpler way you can do this by using the gui in windows: 
+        <br>
+        <br>
+        Navigate to the key stored on your computer and right click: 
+        <br>
+        <br>
+        properties → security → advanced → disable inheritance → remove all inheritance permissions → add → select principal
+        <br>
+        <br>
+        Next, you can enter the username of the account and check the box that gives full control and save. Now if you run the ssh command again to connect to the instance, you should have no problem. 
+        </p>
+    </div>
+</body>
+</html>
