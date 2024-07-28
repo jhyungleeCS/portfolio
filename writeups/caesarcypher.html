@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/navlink.css">
+    <link rel="stylesheet" href="../css/writeup.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
+    <title>Caesar Cipher - Daniel Lee's Portfolio</title>
+</head>
+<body>
+    <iframe id="iframe-navlink" src="../html/navlink.html" title="navigation links"></iframe>
+    <div id="div3">
+        <h1 id="h1whoami">Caesar Cipher</h1>
+        <h3>What is a cipher? </h3>
+        <p>
+        A cipher is a method that is used to encrypt information, converting plaintext into a ciphertext in order to keep information hidden or secret. A cypher usually involves a set of rules and algorithms that help convert the readable data into an unreadable format. 
+        <br>
+        <br>
+        A cipher will require someone who has the appropriate key or method in order to be able to decrypt it back into a readable format. 
+        </p>
+        <h3>What is the difference between plaintext and ciphertext? </h3>
+        <p>
+        Plaintext is the original or the readable format of data before there are any encryption algorithms that have been applied. It is the information that is consistent in its natural state. 
+        <br>
+        <br>
+        Some examples of this would be a text message, a document, or an email.
+        <br>
+        <br>
+        Ciphertext is the transformed or encrypted output of the plaintext. Ciphertext has went through a encryption algorithm in order to make the data unreadable without an appropriate decrpytion key or method. 
+        <br>
+        <br>
+        Some examples of this include a secure communication application or file.
+        </p>
+        <h3>A Caesar Cypher</h3>
+        <p>
+        The caesar cipher is a simple and old encryption technique that was named after Julius Caesar, who is reuputed to have used it in order to protect communications during war. 
+        <br>
+        <br>
+        The caesar cipher is a simple substitution cipher in which each letter in the plaintext is shifted a fixed amount of places down or up the alphabet.
+        </p>
+        <h3>How it works</h3>
+        <p>
+        Encryption begins when you chose a shift value or key, which is the number of positions each letter in the plaintext will be shifted.
+        <br>
+        <br>
+        Replace each letter in the plaintext with the letter that is a fixed number of positions down the alphabet. If the end of the alphabet is reached, it wraps around to the beginning.
+        <br>
+        <br>
+        Decryption is similar in which the same shift value is used in the opposite direction to convert the ciphertext back to the original plaintext. 
+        <br>
+        <br>
+        Below is a quick example of a caesar cypher written in python. When a text is input in the encrypt and decrypt function, it is shifted a number of elements based on the shift_level of the cypher that the user choses.
+        <br>
+        <br>
+        <img src="../images/caesarcypher/caesarcypher.PNG" alt="ccyph">
+        </p>
+        <h3>What are the limitations?</h3>
+        <p>
+        Although the caesar cipher is simple, it is for this exact reason it can have security issues. 
+        <br>
+        <br>
+        The cipher is easy to break, especially with modern computational techniques. Since there are only 25 possible keys, a brute force attack can quickly reveal the plaintext. 
+        <br>
+        <br>
+        By using frequency analysis, the cipher can also be broken by analyzing the frequency of letters in the ciphertext and comparing it to the expected frequency of letters in the language of the plaintext. 
+        </p>
+    </div>
+</body>
+</html>
